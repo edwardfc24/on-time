@@ -1,0 +1,51 @@
+﻿@model OnTime.Models.Vacacion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Vacacion</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.pkVacacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pkVacacion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateFechaInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateFechaInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateFechaFin)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateFechaFin)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fkEmpleado)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fkEmpleado)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fkAutorizacion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fkAutorizacion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

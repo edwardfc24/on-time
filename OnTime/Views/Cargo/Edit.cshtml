@@ -1,0 +1,58 @@
+﻿@model OnTime.Models.Cargo
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre)</h2>
+
+@using (Html.BeginForm("Edit", "Cargo", FormMethod.Post, new { @class = "form" })) {
+
+    @Html.ValidationSummary(true)
+    <div id="phase1">
+        <div class="col-md-12">
+            <div>
+                <fieldset>
+                <legend></legend>
+
+        <ul>
+            <li>
+                <label for="pkEmpleado" class="">Codigo: </label>
+                 @Html.TextBoxFor(m => m.pkCargo, new { @placeholder = "Codigo Cargo" })
+                 @Html.ValidationMessageFor(model => model.pkCargo)
+            </li>
+           <li>
+                <label for="txtNombre" class="">Nombre: </label>
+                 @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre" })
+                 @Html.ValidationMessageFor(model => model.txtNombre)
+           </li>
+            <li>
+                <div class="selectParent">
+                    <label for="fkDepartamento" class="">Departamento: </label>
+                    @Html.DropDownListFor(m => m.fkDepartamento, ViewBag.DepartamentoPk as SelectList, "Seleccione un Departamento")
+             </div>    
+            </li>
+       </ul>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.fullName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fullName)
+            @Html.ValidationMessageFor(model => model.fullName)
+        </div>*@
+
+        <p>
+            <input type="submit" class="btn-custom btn-red" value="Save" />
+        </p>
+    </fieldset>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

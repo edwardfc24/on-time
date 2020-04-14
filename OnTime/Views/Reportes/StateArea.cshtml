@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OnTime.Models.Departamento>
+
+ @{
+    Layout = "~/Views/_LayoutMain.cshtml";
+    ViewBag.Title = "Index";
+}
+<h2>Reporte Lista de Departamentos</h2>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pkDepartamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.txtNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkJefe)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pkDepartamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.txtNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkJefe)
+        </td>
+    </tr>
+}
+</table>
+<div style="padding:10px; border:1px solid black">
+        <div><a href="@Url.Action("Report",new {id= "PDF"})"> Get Report PDF</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Excel"})"> Get Report Excel</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Word"})"> Get Report Word</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Image"})"> Get Report Image</a></div>
+    </div>

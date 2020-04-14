@@ -1,0 +1,151 @@
+﻿@model Tuple<OnTime.Models.Permiso, OnTime.Models.EmpPermiso>
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Asignar Permiso</h2>
+<div class="col-md-12">
+    <ol id="progressbar" class="progtrckr" data-progtrckr-steps="2">
+        <li id="tpEmpleado" class="progtrckr-todo">Datos del Permiso</li>
+        <li id="tpVacacion" class="progtrckr-todo">Datos de Asigancion</li>
+        <li id="confirm" class="progtrckr-todo">Confirmar Registro</li>
+    </ol>
+</div>
+@using (Html.BeginForm("Create", "Permiso", FormMethod.Post, new { @class = "form" }))
+{   
+    <div id="phase1">
+        <h3>Datos Permiso</h3>
+        <div class="col-md-12">
+            <div>
+
+                <div class="clearfix"></div>
+            </div>
+            <ul>
+                <li>
+                    <label for="txtNombre" class="">Nombre: </label>
+                    @Html.TextBoxFor(m => m.Item1.txtDescripcion, new { @placeholder = "Nombre", @required = "true" })
+                    @Html.ValidationMessageFor(model => model.Item1.txtDescripcion)
+                </li>
+                <li class="js-unhighlight-label">
+                    <label for="intFlagEstado">Estado:</label>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.Item1.intEstado, 1) Activo
+                            @Html.ValidationMessageFor(model => model.Item1.intEstado)
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.Item1.intEstado, 0) Desactivado
+                            @Html.ValidationMessageFor(model => model.Item1.intEstado)
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input id="change1" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase2" style="display: none;">
+        <h3>BDatos de Asignaci&oactue;</h3>
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="fkJefe">Jefe:</label>
+                    <div class="selectParent">
+                        @Html.DropDownListFor(m => m.Item2.fkEmpleado, ViewBag.EmpleadoPk as SelectList, "Seleccione un Empleado")
+                    </div>
+                </li>
+                <li class="dates">
+                    <label for="dateFechaInicio">Facha Inicio></label>
+                    @Html.TextBoxFor(m => m.Item2.dateFechaInicio, new { @placeholder = "Fecha de Inicio Vacación", @id = "datetime1", @data_date_format = "DD/MM/YYYY" })
+                </li>
+                <li class="dates">
+                    <label for="dateFechaFin">Fecha Fin :</label>
+                    @Html.TextBoxFor(m => m.Item2.dateFechafin, new { @placeholder = "Fecha final Vacación", @id = "datetime2", @data_date_format = "DD/MM/YYYY" })
+                </li>
+                <li class="dates">
+                    <label for="tHoraEntrada">Hora de Entrada:</label>
+                    @Html.TextBoxFor(m => m.Item2.tHoraInicio, new { @placeholder = "Entrada", @id = "time1" })
+                </li>
+                <li class="dates">
+                    <label for="dateFechaNacimiento">Hora de Salida:</label>
+                    @Html.TextBoxFor(m => m.Item2.tHoraFin, new { @placeholder = "Salida", @id = "time2" })
+                </li>
+
+            </ul>
+            <div>
+                <input id="change2" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase3" style="display: none;">
+        <h3>Confirmar Registro</h3>
+        <div class="center">
+            <h4>¿Est&aacute; seguro de los datos?</h4>
+        </div>
+        <div>
+            <input type="submit" class="btn-custom btn-dark pull-right" value="Registrar" />
+            <input type="reset" id="rchange5" class="btn-custom btn-red pull-right" value="Cancelar" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('#time1').datetimepicker({
+            pickDate: false,
+            pickTime: true
+        });
+        $('#time2').datetimepicker({
+            pickDate: false,
+            pickTime: true
+        });
+        var actualYear = (new Date).getFullYear();
+        var maxYear = '12/31/' + (actualYear - 18);
+        var currentDate = new Date;
+        $("li.dates").each(function () {
+            $(this).html().replace("data_date_format", "data-date-format");
+        });
+        $('#datetime1').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/1940',               //set a minimum date
+            language: 'es'                  //sets language locale
+        });
+        $('#datetime2').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/1940',               //set a minimum date
+            language: 'es',                 //sets language locale
+        });
+        $("#change1").click(function () {
+            $("#phase1").hide();
+            $("#phase2").show();
+            $("#phase3").hide();
+            $("#phase4").hide();
+            $("#phase5").hide();
+            $("#tpTodo").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+
+        $("#change2").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").show();
+            $("#phase4").hide();
+            $("#phase5").hide();
+            $("#tpDpto").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+    });
+</script>

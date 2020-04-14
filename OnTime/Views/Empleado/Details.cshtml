@@ -1,0 +1,106 @@
+﻿@model OnTime.Models.Empleado
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre) <br /> @Html.DisplayFor(model => model.txtApellidos)</h2>
+
+<fieldset>
+    <legend></legend>
+    <div class="display-label">
+        <p><strong>CodigoEmpleado</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pkEmpleado)
+    </div>
+
+  @*  <div class="display-label">
+         @Html.DisplayNameFor(model => model.txtNombre)
+    </div>
+    <div class="display-field">
+        
+    </div>*@
+
+@*    <div class="display-label">
+         @Html.DisplayNameFor(model => model.txtApellidos)
+    </div>
+    <div class="display-field">
+       
+    </div>*@
+
+    <div class="display-label">
+        <p><strong>Carnet de Identificacion</strong> </p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtCI)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Fecha de Nacimiento</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateFechaNacimiento)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Contarasena</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtPassword)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Direccion</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtDireccion)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Telefono</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtTelefono)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Correo</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtCorreo)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Fecha de contrato</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateFechaContrato)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Estado del Empleado 1(Activvo) 2(Inactivo)</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.intFlagEstado)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Tipo de empleado 1(Administrador) 2(Jefe de carrera) 3(Empleado)</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.intTipo)
+    </div>
+
+@*    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fullName)
+    </div>*@
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id =Model.pkEmpleado}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

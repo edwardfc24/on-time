@@ -1,0 +1,37 @@
+﻿@model OnTime.Models.Cargo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre) </h2>
+
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+          <p><strong>Codigo Cargo</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pkCargo)
+    </div>
+
+    <div class="display-label">
+         <p><strong>Nombre Cargo</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtNombre)
+    </div>
+
+    <div class="display-label">
+          <p><strong>Codigo Departamento</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fkDepartamento)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id=Model.pkCargo  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

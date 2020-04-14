@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OnTime.Models.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+
+<h2>Buscar Empleado</h2>
+
+@using (Html.BeginForm("Index", "Empleado", FormMethod.Get))
+{
+    <div id="phase1">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Busqueda por Nombre"})  
+        <input type="submit" class="btn-custom btn-dark" value="Search" />
+    </div>
+}
+<table>
+<tr>
+    <th></th>
+    <th>
+        @Html.ActionLink("Nombre", "Index", new { sortOrder=ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+    </th>
+    <th>
+       @Html.ActionLink("Apellido", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+    </th>
+    <th>
+         CI
+    </th>
+</tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.pkEmpleado }) 
+            @Html.ActionLink("Details", "Details", new { id = item.pkEmpleado }) 
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.txtNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.txtApellidos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.txtCI)
+        </td>
+    </tr>
+}
+
+</table>
+<br /> 

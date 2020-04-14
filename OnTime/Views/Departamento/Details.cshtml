@@ -1,0 +1,37 @@
+﻿@model OnTime.Models.Departamento
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre)</h2>
+
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+         <p><strong>Codigo Departamento</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pkDepartamento)
+    </div>
+
+    <div class="display-label">
+         <p><strong>Nombre Departamento</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.txtNombre)
+    </div>
+
+    <div class="display-label">
+        <p><strong>Jefe del Departamento</strong></p>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fkJefe)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.pkDepartamento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,258 @@
+﻿@model OnTime.Models.Empleado
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre) <br /> @Html.DisplayFor(model => model.txtApellidos)</h2>
+
+@using (Html.BeginForm("Edit", "Empleado", FormMethod.Post, new { @class = "form" })) {
+    @Html.ValidationSummary(true)
+
+    <div id="phase1">
+        <h3>Datos Personales</h3>
+        <div class="col-md-12">
+            <div>
+                <fieldset>
+        <legend></legend>
+
+        <ul>
+            <li>
+                <label for="pkEmpleado" class="">Codigo: </label>
+                 @Html.TextBoxFor(m => m.pkEmpleado, new { @placeholder = "Codigo Empleado" })
+                 @Html.ValidationMessageFor(model => model.pkEmpleado)
+            </li>
+           <li>
+                <label for="txtNombre" class="">Nombre: </label>
+                 @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre" })
+                 @Html.ValidationMessageFor(model => model.txtNombre)
+           </li>
+            <li>
+                <label for="txtApellio" class="">Apellido: </label>
+                 @Html.TextBoxFor(m => m.txtApellidos, new { @placeholder = "Apellidos" })
+                 @Html.ValidationMessageFor(model => model.txtApellidos)
+           </li>
+            <li>
+                <label for="txtCI" class="">CI: </label>
+                 @Html.TextBoxFor(m => m.txtCI, new { @placeholder = "Carnet de Identidad" })
+                 @Html.ValidationMessageFor(model => model.txtCI)
+           </li>
+            <li class="dates">
+                    <label for="dateFechaNacimiento">Fecha de Nacimiento></label>
+                    @Html.TextBoxFor(m => m.dateFechaNacimiento, new { @placeholder = "Fecha de Nacimiento", @id = "datetime1", @data_date_format = "DD/MM/YYYY" })
+                     @Html.ValidationMessageFor(model => model.dateFechaNacimiento)
+            </li>
+            <li>
+                <label for="txtPassword" class="">Contraseña: </label>
+                 @Html.TextBoxFor(m => m.txtPassword, new { @placeholder = "Contraseña" })
+                 @Html.ValidationMessageFor(model => model.txtPassword)
+           </li>
+            <li>
+                <label for="txtDireccion" class="">Direccion: </label>
+                 @Html.TextBoxFor(m => m.txtDireccion, new { @placeholder = "Direccion" })
+                 @Html.ValidationMessageFor(model => model.txtDireccion)
+           </li>
+            <li>
+                <label for="txtTelefono" class="">Telefono: </label>
+                 @Html.TextBoxFor(m => m.txtTelefono, new { @placeholder = "Telefono" })
+                 @Html.ValidationMessageFor(model => model.txtTelefono)
+           </li>
+            <li>
+                <label for="txtCorreo" class="">Correo: </label>
+                 @Html.TextBoxFor(m => m.txtCorreo, new { @placeholder = "Email" })
+                 @Html.ValidationMessageFor(model => model.txtCorreo)
+           </li>
+            <li class="dates">
+                    <label for="dateFechaContrato">Fecha de Contrato:</label>
+                    @Html.TextBoxFor(m => m.dateFechaContrato, new { @placeholder = "Fecha de Contrato", @id = "datetime2", @data_date_format = "DD/MM/YYYY" })
+               @Html.ValidationMessageFor(model => model.dateFechaContrato)
+             </li>
+           <li>
+              <label for="intFlagEstado" class="">Estado: </label>
+              @Html.TextBoxFor(m => m.intFlagEstado, new { @placeholder = "Estado" })
+              @Html.ValidationMessageFor(model => model.intFlagEstado)
+           </li>
+            <li>
+              <label for="intTipo" class="">Tipo Empleado: </label>
+              @Html.TextBoxFor(m => m.intTipo, new { @placeholder = "Tipo de Empleado" })
+              @Html.ValidationMessageFor(model => model.intTipo)
+           </li>
+       </ul>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.fullName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fullName)
+            @Html.ValidationMessageFor(model => model.fullName)
+        </div>*@
+
+        <p>
+            <input type="submit" class="btn-custom btn-red" value="Save" />
+        </p>
+    </fieldset>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+    $(function () {
+        var actualYear = (new Date).getFullYear();
+        var maxYear = '12/31/' + (actualYear - 18);
+        var currentDate = new Date;
+        $("li.dates").each(function () {
+            $(this).html().replace("data_date_format", "data-date-format");
+        });
+        $('#datetime1').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/1940',               //set a minimum date
+            maxDate: maxYear,
+            defaultDate: maxYear,
+            language: 'es',                  //sets language locale
+        });
+        $('#datetime2').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/1940',               //set a minimum date
+            maxDate: currentDate,
+            defaultDate: maxYear,
+            language: 'es',                  //sets language locale
+        });
+        $("#DepartamentoPk").change(function () {
+            var dID = $(this).val();
+            var url = "/Empleado/GetCargosByIdDpto/";
+
+            $.ajax({
+                url: url,
+                data: { idDpto: dID },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    var markup = "<option value='0'>Seleccione un Cargo</option>";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#CargoPk").html(markup).show();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+
+        });
+        $("#addCargo").click(function () {
+            if ($("#listCargos > h4").length < 2) {
+                var cargo = '<h4 id="' + $("#CargoPk option:selected").val() + '">' + $("#DepartamentoPk option:selected").text() + ' - ' + $("#CargoPk option:selected").text() + '</h4>';
+                $("#listCargos").append(cargo);
+            }
+        });
+
+        $("#change1").click(function () {
+            $("#phase1").hide();
+            $("#phase2").show();
+            $("#phase3").hide();
+            $("#phase4").hide();
+            $("#phase5").hide();
+            $("#tpTodo").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+
+        $("#change2").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").show();
+            $("#phase4").hide();
+            $("#phase5").hide();
+            $("#tpDpto").removeClass("progtrckr-todo").addClass("progtrckr-done");
+
+            var auxiliar = [];
+            $("#listCargos > h4").each(function () {
+                auxiliar.push({ pkEmpCargo: 0, fkEmpleado: 0, fkCargo: $(this).attr("id") });
+            });
+            auxiliar = JSON.stringify({ 'auxiliar': auxiliar });
+            $.ajax({
+                url: "/Empleado/setListaCargos/",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: auxiliar,
+                type: "POST",
+                cache: false,
+                success: function () {
+                    alert("Registro exitoso");
+                }
+            });
+        });
+
+        $("#change3").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").hide();
+            $("#phase4").show();
+            $("#phase5").hide();
+            $("#tpTurno").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+
+        $("#change4").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").hide();
+            $("#phase4").hide();
+            $("#phase5").show();
+            $("#tpHorario").removeClass("progtrckr-todo").addClass("progtrckr-done");
+            var horarios = [];
+            $("input.pk").each(function () {
+                horarios.push({ pkHoTurno: 0, fkHorario: $(this).attr("id"), tkTurno: 0 });
+            });
+            horarios = JSON.stringify({ 'horarios': horarios });
+            $.ajax({
+                url: "/Empleado/setListaHorarios/",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: horarios,
+                type: "POST",
+                cache: false,
+                success: function () {
+                    alert("Registro exitoso");
+                }
+            });
+        });
+
+        $("#addHour").click(function () {
+            var dID = $("#HorarioPk").val();
+            var url = "/Turno/GetDatosHorario/";
+
+            $.ajax({
+                url: url,
+                data: { idHorario: dID },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    var html = '<li class="fila form-group">';
+                    html += '<div class="col-md-3"><input type="text" disabled="disabled" class="pk form-control" id="' + data.pkHorario + '" value="' + data.txtNombre + '"/></div>';
+                    html += '<div class="col-md-2"><input type="text" disabled="disabled" class="horaInicio form-control" placeholder="08:00" value="' + data.tHoraEntrada + '"/></div>';
+                    html += '<div class="col-md-2"><input type="text" disabled="disabled" class="horaFin form-control" placeholder="08:00" value="' + data.tHoraSalida + '"/></div>';
+                    html += '<div class="col-md-2"><input type="text" disabled="disabled" class="dias form-control" placeholder="08:00" value="' + data.txtDias + '"/></div>';
+                    html += '<div class="col-md-3"><input type="button" class="btn-red btn-custom removeDiv" value="Borrar"/></div>';
+                    html += '<div class="clearfix"></div></li>';
+                    $("#listHours").append(html);
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        });
+        $('.removeDiv').live('click', function () {
+            $(this).closest('li').remove().fadeOut().slow();
+        });
+    });
+</script>

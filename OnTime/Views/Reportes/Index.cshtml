@@ -1,0 +1,92 @@
+﻿@model IEnumerable<OnTime.Models.ReporteCI>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Asistencia por Empleados</h2>
+@using (Html.BeginForm("Index", "Reportes", FormMethod.Get))
+{
+      <div id="phase1">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Busqueda por Nombre"})  
+        <input type="submit" class="btn-custom btn-dark" value="Search" />
+    </div>
+}
+<table>
+    <tr>
+        <th>
+            @Html.ActionLink("Nombre", "Index", new { sortOrder=ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraEntrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraEntradaActual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiferenciaEntrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraSalidaActual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiferenciaSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+           @Html.ActionLink("CarnetIdentidad", "Index", new { sortOrder=ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Horario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empleado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraEntrada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraEntradaActual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiferenciaEntrada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraSalida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraSalidaActual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiferenciaSalida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarnetIdentidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Horario)
+        </td>
+    </tr>
+}
+    
+</table>
+<div style="padding:10px; border:1px solid black">
+        <div><a href="@Url.Action("Report",new {id= "PDF"})"> Get Report PDF</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Excel"})"> Get Report Excel</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Word"})"> Get Report Word</a></div>
+        <div><a href="@Url.Action("Report",new {id= "Image"})"> Get Report Image</a></div>
+    </div>

@@ -1,0 +1,121 @@
+﻿@model OnTime.Models.Mensaje
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Crear Mensaje</h2>
+<div class="col-md-12">
+    <ol id="progressbar" class="progtrckr" data-progtrckr-steps="2">
+        <li id="tpMensaje" class="progtrckr-todo">Datos del Mensaje</li>
+        <li id="confirm" class="progtrckr-todo">Confirmar Registro</li>
+    </ol>
+</div>
+@using (Html.BeginForm("Create", "Mensaje", FormMethod.Post, new { @class = "form" }))
+{
+    <div id="phase1">
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="txtDescripcion" class="">Mensaje: </label>
+                    @Html.TextAreaFor(m => m.txtDescripcion, new { @placeholder = "Escriba su mensaje" })
+                </li>
+                <li>
+                    <label for="ddTipoMensaje">Enviar a:</label>
+                    <div class="selectParent">
+                        @{
+    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+    dictionary.Add("Seleccione  un tipo de Envio", "0");
+    dictionary.Add("Todos los empleados", "1");
+    dictionary.Add("Solo uno", "2");
+    SelectList list = new SelectList(dictionary, "value", "key");
+                        }
+                        @Html.DropDownList("ddTipoMensaje", list)
+                    </div>
+                </li>
+                <li class="employs hidden">
+                    <label for="ddEmpleado">Empleado:</label>
+                    <div class="selectParent">
+                        @Html.DropDownList("ddEmpleado", ViewBag.EmpleadoPk as SelectList, "Seleccione un Empleado")
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input id="change1" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase2" style="display: none;">
+        <h3>Confirmar Registro</h3>
+        <div class="center">
+            <h4>¿Est&aacute; seguro de los datos?</h4>
+        </div>
+        <div>
+            <input type="submit" class="btn-custom btn-dark pull-right" value="Registrar" />
+            <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('select#ddTipoMensaje').on('change', function () {
+            var tipo = $(this).val();
+            if (tipo == "2") {
+                $(".employs").fadeOut("slow", function () {
+                    $(this).removeClass("hidden");
+                });
+            } else {
+                $(".employs").fadeIn("slow", function () {
+                    $(this).addClass("hidden");
+                });
+            }
+        });
+        $("#change1").click(function () {
+            $("#phase1").hide();
+            $("#phase2").show();
+            $("#tpMensaje").removeClass("progtrckr-todo").addClass("progtrckr-done");
+
+            var auxiliar = [];
+            var nuevo = $("#ddTipoMensaje option:selected").val();
+            if (nuevo == "2") {
+                auxiliar.push({ pkEmpMensaje: 0, fkMensaje: 0, fkEmpleado: $("#ddEmpleado option:selected").val() });
+                auxiliar = JSON.stringify({ 'auxiliar': auxiliar });
+                $.ajax({
+                    url: "/Mensaje/setListaEmpMensaje/",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: auxiliar,
+                    type: "POST",
+                    cache: false,
+                    success: function () {
+                        alert("Registro exitoso");
+                    }
+                });
+            } else {
+                $("#ddEmpleado option").each(function () {
+                    if ($(this).attr("value") != "") {
+                        auxiliar.push({ pkEmpMensaje: 0, fkMensaje: 0, fkEmpleado: $(this).attr("value") });
+                    }
+                });
+                auxiliar = JSON.stringify({ 'auxiliar': auxiliar });
+                $.ajax({
+                    url: "/Mensaje/setListaEmpMensaje/",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: auxiliar,
+                    type: "POST",
+                    cache: false,
+                    success: function () {
+                        alert("Registro exitoso");
+                    }
+                });
+            }
+        });
+    });
+</script>

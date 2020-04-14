@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+@model OnTime.Models.Vacacion
+<h2>Asignar Vacaci&oacute;n</h2>
+<div class="col-md-12">
+    <ol id="progressbar" class="progtrckr" data-progtrckr-steps="2">
+        <li id="tpEmpleado" class="progtrckr-todo">Datos del Empleado</li>
+        <li id="tpVacacion" class="progtrckr-todo">Datos del per&iacute;odo de Vacaci&oacute;n</li>
+        <li id="confirm" class="progtrckr-todo">Confirmar Registro</li>
+    </ol>
+</div>
+@using (Html.BeginForm("Create", "Vacaciones", FormMethod.Post, new { @class = "form" }))
+{   
+    <div id="phase1">
+        <h3>Buscar Empleado</h3>
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="txtNombre" class="">Nombre: </label>
+                    @Html.TextBox("txtNombre", "", new { @placeholder = "Ingrese un nombre o Apellido" })
+                </li>
+            </ul>
+            <div>
+                <input type="button" id="addPerson" class="btn-custom btn-dark pull-right" value="A&ntilde;adir" />
+                <div class="clearfix"></div>
+            </div>
+            <div id="listEmpleados">
+            </div>
+            <div>
+                <input id="change1" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase2" style="display: none;">
+        <h3>Agregar vacaci&oacute;n</h3>
+        <div class="col-md-12">
+            <ul>
+                <li class="dates">
+                    <label for="dateFechaInicio">Fecha de Nacimiento></label>
+                    @Html.TextBoxFor(m => m.dateFechaInicio, new { @placeholder = "Fecha de Inicio Vacación", @id = "datetime1", @data_date_format = "DD/MM/YYYY" })
+                </li>
+                <li class="dates">
+                    <label for="dateFechaFin">Fecha de Contrato:</label>
+                    @Html.TextBoxFor(m => m.dateFechaFin, new { @placeholder = "Fecha final Vacación", @id = "datetime2", @data_date_format = "DD/MM/YYYY" })
+                </li>
+                @Html.HiddenFor(m => m.fkEmpleado)
+                @Html.Hidden("nombreEmp")
+            </ul>
+            <div>
+                <input id="change2" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase3" style="display: none;">
+        <h3>Confirmar Registro</h3>
+        <div class="center">
+            <h4>¿Est&aacute; seguro de los datos?</h4>
+        </div>
+        <div>
+            <input type="submit" class="btn-custom btn-dark pull-right" value="Registrar" />
+            <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#change1").click(function () {
+            $("#phase1").hide();
+            $("#phase2").show();
+            $("#phase3").hide();
+            $("#tpEmpleado").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+        $("#change2").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").show();
+            $("#tpVacacion").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+        $("#txtNombre").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Vacaciones/AutoCompleteEmpleados/",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.fullName, value: item.pkEmpleado };
+                        }))
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $("#fkEmpleado").val(ui.item.value);
+                $("#nombreEmp").val(ui.item.label);
+            }
+        });
+        var actualYear = (new Date).getFullYear();
+        var maxYear = '12/31/' + actualYear;
+        $("li.dates").each(function () {
+            $(this).html().replace("data_date_format", "data-date-format");
+        });
+        $('#datetime1').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/2010',               //set a minimum date
+            maxDate: maxYear,
+            language: 'es',                  //sets language locale
+        });
+        $('#datetime2').datetimepicker({
+            pickDate: true,                 //en/disables the date picker
+            pickTime: false,                //en/disables the time picker
+            useCurrent: false,
+            minDate: '01/01/2010',               //set a minimum date
+            maxDate: maxYear,
+            language: 'es',                  //sets language locale
+        });
+    });
+
+    $("#addPerson").click(function () {
+        if ($("#listEmpleados > h4").length < 1) {
+            var empl = '<h4 id="' + $("#fkEmpleado").val() + '">' + $("#nombreEmp").val() + '</h4>';
+            $("#listEmpleados").append(empl);
+        }
+    });
+
+</script>

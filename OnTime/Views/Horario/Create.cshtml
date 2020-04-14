@@ -1,0 +1,86 @@
+﻿@model OnTime.Models.Horario
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+<h2>Agregar Horario</h2>
+@using (Html.BeginForm("Create", "Horario", FormMethod.Post, new { @class = "form" }))
+{   
+    <div id="phase1">
+        <h3>Datos de Horario</h3>
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="txtNombre" class="">Nombre: </label>
+                    @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre" })
+                </li>
+                <li class="dates">
+                    <label for="tHoraEntrada">Hora de Entrada:</label>
+                    @Html.TextBoxFor(m => m.tHoraEntrada, new { @placeholder = "Entrada", @id = "datetime1" })
+                </li>
+                <li class="dates">
+                    <label for="dateFechaNacimiento">Hora de Salida:</label>
+                    @Html.TextBoxFor(m => m.tHoraSalida, new { @placeholder = "Salida", @id = "datetime2" })
+                </li>
+                <li class="checkbox js-unhighlight-label">
+                    <div style="float: left; margin-right: 10px;">D&iacute;as:</div>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="2">L</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="3">M</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="4">X</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="5">J</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="6">V</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="7">S</label>
+                    <label class="nonEffect">
+                        <input type="checkbox" class="checkbox" value="1">D</label>
+                    @Html.HiddenFor(m => m.txtDias)
+                </li>
+                <li class="js-unhighlight-label">
+                    <label for="intFlagEstado">Estado:</label>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.intEstado, 1) Activo
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.intEstado, 0) Desactivado
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input type="submit" class="btn-custom btn-dark pull-right" value="Registrar" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetime1').datetimepicker({
+            pickDate: false,
+            pickTime: true
+        });
+        $('#datetime2').datetimepicker({
+            pickDate: false,
+            pickTime: true
+        });
+        $(".checkbox").change(function () {
+            var txt = "";
+            $(".checkbox:checked").each(function () {
+                txt += $(this).val() + " ";
+            });
+            $("#txtDias").val(txt);
+        });
+    });
+</script>

@@ -1,0 +1,119 @@
+﻿@model PracticaMVC.Models.Empleados
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Empleados</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PkEmpleado)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PkEmpleado)
+            @Html.ValidationMessageFor(model => model.PkEmpleado)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtNombre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtNombre)
+            @Html.ValidationMessageFor(model => model.TxtNombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtApellidos)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtApellidos)
+            @Html.ValidationMessageFor(model => model.TxtApellidos)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtCI)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtCI)
+            @Html.ValidationMessageFor(model => model.TxtCI)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateFechaNacimiento)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateFechaNacimiento)
+            @Html.ValidationMessageFor(model => model.DateFechaNacimiento)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtPassword)
+            @Html.ValidationMessageFor(model => model.TxtPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtDireccion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtDireccion)
+            @Html.ValidationMessageFor(model => model.TxtDireccion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtTelefono)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtTelefono)
+            @Html.ValidationMessageFor(model => model.TxtTelefono)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TxtCorreo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TxtCorreo)
+            @Html.ValidationMessageFor(model => model.TxtCorreo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateFechaContrato)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateFechaContrato)
+            @Html.ValidationMessageFor(model => model.DateFechaContrato)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IntFlagEstado)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IntFlagEstado)
+            @Html.ValidationMessageFor(model => model.IntFlagEstado)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IntTipo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IntTipo)
+            @Html.ValidationMessageFor(model => model.IntTipo)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

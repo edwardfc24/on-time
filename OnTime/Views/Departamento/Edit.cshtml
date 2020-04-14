@@ -1,0 +1,49 @@
+﻿@model OnTime.Models.Departamento
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.txtNombre)</h2>
+
+@using (Html.BeginForm("Edit", "Departamento", FormMethod.Post, new { @class = "form" }))  {
+    @Html.ValidationSummary(true)
+
+    <div id="phase1">
+        <div class="col-md-12">
+            <div>   
+                <fieldset>
+                <legend></legend>
+                    <ul>
+                        <li>
+                            <label for="pkDepartamento" class="">Codigo: </label>
+                             @Html.TextBoxFor(m => m.pkDepartamento, new { @placeholder = "Codigo Departamento" })
+                             @Html.ValidationMessageFor(model => model.pkDepartamento)
+                        </li>
+                        <li>
+                            <label for="txtNombre" class="">Nombre: </label>
+                             @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre Departamento" })
+                             @Html.ValidationMessageFor(model => model.txtNombre)
+                        </li>
+                        <li>
+                            <label for="fkJefe" class="">Jefe: </label>
+                             @Html.DropDownListFor(m => m.fkJefe, ViewBag.EmpleadoPk as SelectList, "Seleccione un Jefe")
+                             @Html.ValidationMessageFor(model => model.txtNombre)
+                        </li>
+                    </ul>
+                    <p>
+                        <input type="submit" class="btn-custom btn-red" value="Save" />
+                    </p>
+                </fieldset>
+                <div class="clearfix"></div>
+             </div>
+         </div>
+     </div>
+        
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+ 

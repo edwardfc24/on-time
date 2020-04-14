@@ -1,0 +1,58 @@
+﻿@model OnTime.Models.Empleado
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>EditSolo</h2>
+
+@using (Html.BeginForm("EditSolo", "Empleado", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(true)
+    <ul>
+        <li>
+            <label for="txtNombre" class="">Nombre: </label>
+            @Html.EditorFor(model => model.txtNombre, new { @placeholder = "Nombre" })
+            @Html.ValidationMessageFor(model => model.txtNombre)
+        </li>
+        <li>
+            <label for="txtApellidos">Apellidos:</label>
+            @Html.EditorFor(model => model.txtApellidos, new { @placeholder = "Apellidos" })
+            @Html.ValidationMessageFor(model => model.txtApellidos)
+        </li>
+        <li>
+            <label for="txtPassword">Password:</label>
+            @Html.PasswordFor(model => model.txtPassword, new { @placeholder = "Contraseña" })
+            @Html.ValidationMessageFor(model => model.txtPassword)
+        </li>
+        <li>
+            <label for="txtDireccion">Direcci&oacute;n:</label>
+            @Html.EditorFor(model => model.txtDireccion, new { @placeholder = "Dirección" })
+            @Html.ValidationMessageFor(model => model.txtDireccion)
+        </li>
+        <li>
+            <label for="txtTelefono">Tel&eacute;fono:</label>
+            @Html.EditorFor(model => model.txtTelefono, new { @placeholder = "Teléfono" })
+            @Html.ValidationMessageFor(model => model.txtTelefono)
+        </li>
+        <li>
+            <label for="txtCorreo">Email:</label>
+            @Html.EditorFor(model => model.txtCorreo, new { @placeholder = "Correo" })
+            @Html.ValidationMessageFor(model => model.txtCorreo)
+        </li>
+        @Html.HiddenFor(model => model.pkEmpleado)
+        @Html.HiddenFor(model => model.txtCI)
+        @Html.HiddenFor(model => model.dateFechaNacimiento)
+        @Html.HiddenFor(model => model.dateFechaContrato)
+        @Html.HiddenFor(model => model.intFlagEstado)
+        @Html.HiddenFor(model => model.intTipo)
+    </ul>
+    <div>
+        <input type="submit" class="next btn-custom btn-dark pull-right" value="Guardar" />
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+}
+
+

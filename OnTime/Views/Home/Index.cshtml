@@ -1,0 +1,60 @@
+﻿@model OnTime.Models.Login
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/normalize.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="~/js/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="~/js/modernizr-2.6.2.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="~/js/jquery.validate.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <section class="col-xs-12 col-md-12 login">
+                <img src="~/images/bgOnTimeDark.jpg" alt="background" class="img-responsive" />
+                @using (Html.BeginForm())
+                { 
+                    @Html.ValidationSummary(true, "Login fallido,verificar los datos.");
+                    <div class="float-content-login">
+                        <div class="row">
+                            <h3 class="titles">LOG IN On<span>Time</span></h3>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                @Html.TextBoxFor(m => m.TxtNombre, new { @class = "form-control input-user", placeholder = "USER" })
+                                @Html.ValidationMessageFor(m => m.TxtNombre)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                @Html.PasswordFor(m => m.TxtPassword, new { @class = "form-control input-password", placeholder = "PASSWORD" })
+                                @Html.ValidationMessageFor(m => m.TxtPassword)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="submit" value="LOG IN" class="btn form-control btn-login" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</body>
+</html>

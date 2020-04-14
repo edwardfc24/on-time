@@ -1,0 +1,33 @@
+﻿@model OnTime.Models.Cargo
+
+@{
+    ViewBag.Title = "Crear Cargo";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Crear Cargo</h2>
+@using (Html.BeginForm("Create", "Cargo", FormMethod.Post, new { @class = "form" }))
+{
+    <div id="phase1">
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="txtNombre" class="">Nombre: </label>
+                    @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre" })
+                </li>
+                <li>
+                    <label for="fkJefe">Departamento:</label>
+                    <div class="selectParent">
+                        @Html.DropDownListFor(m => m.fkDepartamento, ViewBag.DepartamentoPk as SelectList, "Seleccione un Departamento")
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input type="submit" class="btn-custom btn-dark pull-right" value="Crear" />
+                <a href="#" class="btn-custom btn-red pull-right">Cancelar</a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}

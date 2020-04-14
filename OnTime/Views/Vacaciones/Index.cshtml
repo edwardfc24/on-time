@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnTime.Models.Vacacion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+<h2>Vacaciones</h2>
+@using (Html.BeginForm("Index", "Departamento", FormMethod.Get))
+{
+   <div id="phase1">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Busqueda por Nombre"})  
+        <input type="submit" class="btn-custom btn-dark" value="Search" />
+    </div>
+}
+<p>
+    @Html.ActionLink("Añadir Vacación", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dateFechaInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateFechaFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkEmpleado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkAutorizacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateFechaInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateFechaFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkEmpleado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkAutorizacion)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.pkVacacion }) 
+        </td>
+    </tr>
+}
+
+</table>

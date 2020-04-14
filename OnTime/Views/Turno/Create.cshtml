@@ -1,0 +1,154 @@
+﻿@model OnTime.Models.Turno
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+<h2>Agregar Turno</h2>
+<div class="col-md-12">
+    <ol id="progressbar" class="progtrckr" data-progtrckr-steps="2">
+        <li id="tpTurno" class="progtrckr-todo">Datos del Turno</li>
+        <li id="tpHorario" class="progtrckr-todo">Agregar Horarios</li>
+        <li id="confirm" class="progtrckr-todo">Confirmar Registro</li>
+    </ol>
+</div>
+@using (Html.BeginForm("Create", "Turno", FormMethod.Post, new { @class = "form" }))
+{   
+    <div id="phase1">
+        <h3>Datos del Turno</h3>
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="txtNombre" class="">Nombre: </label>
+                    @Html.TextBoxFor(m => m.txtNombre, new { @placeholder = "Nombre" })
+                </li>
+                <li class="js-unhighlight-label">
+                    <label for="intFlagEstado">Estado:</label>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.intEstado, 1) Activo
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="nonEffect">
+                            @Html.RadioButtonFor(m => m.intEstado, 0) Desactivado
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input id="change1" type="button" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase2" style="display: none;">
+        <h3>Agregar Horarios</h3>
+        <div class="col-md-12">
+            <ul>
+                <li>
+                    <label for="HorarioPk" class="nonEffect">Departamento: </label>
+                    <div class="selectParent">
+                        @Html.DropDownList("HorarioPk", ViewBag.HorarioPk as SelectList, "Seleccione un Horario")
+                    </div>
+                </li>
+            </ul>
+            <div>
+                <input type="button" id="addHour" class="btn-custom btn-dark pull-right" value="Agregar Horario" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <ul id="listHours">
+                <li>
+                    <div class="center col-md-3">Nombre</div>
+                    <div class="center col-md-2">Hora Inicio</div>
+                    <div class="center col-md-2">Hora Fin</div>
+                    <div class="center col-md-2">D&iacute;as</div>
+                    <div class="center col-md-3">Eliminar</div>
+                </li>
+            </ul>
+            <div>
+                <input type="button" id="change2" class="next btn-custom btn-dark pull-right" value="Siguiente" />
+                <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="phase3" style="display: none;">
+        <h3>Confirmar Registro</h3>
+        <div class="center">
+            <h4>¿Est&aacute; seguro de los datos?</h4>
+        </div>
+        <div>
+            <input type="submit" class="btn-custom btn-dark pull-right" value="Registrar" />
+            <input type="reset" class="btn-custom btn-red pull-right" value="Cancelar" />
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#change1").click(function () {
+            $("#phase1").hide();
+            $("#phase2").show();
+            $("#phase3").hide();
+            $("#tpTurno").removeClass("progtrckr-todo").addClass("progtrckr-done");
+        });
+        $("#change2").click(function () {
+            $("#phase1").hide();
+            $("#phase2").hide();
+            $("#phase3").show();
+            $("#tpHorario").removeClass("progtrckr-todo").addClass("progtrckr-done");
+            var auxiliar = [];
+            $("input.pk").each(function () {
+                auxiliar.push({ pkHoTurno: 0, fkHorario: $(this).attr("id"), tkTurno: 0 });
+            });
+            auxiliar = JSON.stringify({ 'auxiliar': auxiliar });
+            $.ajax({
+                url: "/Turno/setListaHorarios/",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                data: auxiliar,
+                type: "POST",
+                cache: false,
+                success: function () {
+                    alert("Registro exitoso");
+                }
+            });
+        });
+    });
+
+    $("#addHour").click(function () {
+        var dID = $("#HorarioPk").val();
+        var url = "/Turno/GetDatosHorario/";
+
+        $.ajax({
+            url: url,
+            data: { idHorario: dID },
+            type: "POST",
+            cache: false,
+            success: function (data) {
+                var html = '<li class="fila form-group">';
+                html += '<div class="col-md-3"><input type="text" disabled="disabled" class="pk form-control" id="' + data.pkHorario + '" value="' + data.txtNombre + '"/></div>';
+                html += '<div class="col-md-2"><input type="text" disabled="disabled" class="horaInicio form-control" placeholder="08:00" value="' + data.tHoraEntrada + '"/></div>';
+                html += '<div class="col-md-2"><input type="text" disabled="disabled" class="horaFin form-control" placeholder="08:00" value="' + data.tHoraSalida + '"/></div>';
+                html += '<div class="col-md-2"><input type="text" disabled="disabled" class="dias form-control" placeholder="08:00" value="' + data.txtDias + '"/></div>';
+                html += '<div class="col-md-3"><input type="button" class="btn-red btn-custom removeDiv" value="Borrar"/></div>';
+                html += '<div class="clearfix"></div></li>';
+                $("#listHours").append(html);
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    });
+    $('.removeDiv').live('click', function () {
+        $(this).closest('li').remove().fadeOut().slow();
+    });
+
+</script>

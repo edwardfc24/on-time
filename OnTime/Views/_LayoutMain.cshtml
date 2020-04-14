@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/normalize.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/js/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="~/js/modernizr-2.6.2.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/js/moment.min.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="~/js/onTime.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <section id="scrollbox3" class="col-md-3 sidebar hidden-xs">
+                <div class="logo">
+                    <img src="~/images/logoOnTime.png" alt="logo" />
+                </div>
+                @Html.Partial("~/Views/_MenuPage.cshtml")
+            </section>
+            <section class="col-sm-12 col-md-9 main">
+                <div class="float-content">
+                    @RenderBody()
+                    <div class="clearfix"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

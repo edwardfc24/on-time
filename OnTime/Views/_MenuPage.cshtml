@@ -1,0 +1,202 @@
+﻿@{
+    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+    string name = ticket.Name;
+    int pkEmp = Convert.ToInt32(name);
+    OnTime.Models.Empleado empleado = OnTime.BLL.EmpleadoBLL.GetEmpleadoById(pkEmp);
+    var tipo = empleado.intTipo;
+}
+@if (tipo == 1)
+{
+    <div class="wrap-menu">
+        <nav class="navbar-collapse bs-navbar-collapse collapse in" role="navigation" style="height: auto;">
+            <ul class="menu-left nav nav-sidebar">
+                <li class="empleado">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-empleado"><strong>Empleados</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-empleado" class="collapse">
+                        <li><a href="~/Empleado/Create">Agregar Empleado</a></li>
+                        <li>
+                            <a href="~/Empleado/Index">Buscar Empleado</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="departamento">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-departamento"><strong>Departamentos</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-departamento" class="collapse">
+                        <li>
+                            <a href="~/Departamento/Create">Crear Departamento</a>
+                        </li>
+                        <li>
+                            <a href="~/Departamento/Index">Buscar Departamento</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="cargo">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-cargo"><strong>Cargos</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-cargo" class="collapse">
+                        <li>
+                            <a href="~/Cargo/Create">Crear Cargo</a>
+                        </li>
+                        <li>
+                            <a href="~/Cargo/Index">Buscar Cargo</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="turno">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-turno"><strong>Turnos</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-turno" class="collapse">
+                        <li>
+                            <a href="~/Turno/Create">Crear Turno</a>
+                        </li>
+                        <li>
+                            <a href="~/Turno/Index">Buscar Turno</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="horario">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-horario"><strong>Horarios</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-horario" class="collapse">
+                        <li>
+                            <a href="~/Horario/Create">Crear Horario</a>
+                        </li>
+                        <li>
+                            <a href="~/Horario/Index">Buscar Horario</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="permiso">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-permiso"><strong>Permisos</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-permiso" class="collapse">
+                        <li>
+                            <a href="~/Permiso/Create">Crear Permiso</a>
+                        </li>
+                        <li>
+                            <a href="~/Permiso/Index">Buscar Permiso</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="vacacion">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-vacacion"><strong>Vacaciones</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-vacacion" class="collapse">
+                        <li>
+                            <a href="~/Vacaciones/Create">Asignar Vacaci&oacute;n</a>
+                        </li>
+                        <li>
+                            <a href="~/Vacaciones/Index">Buscar Vacaci&oacute;n</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mensaje">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#admin-mensaje"><strong>Mensajes</strong></a>
+                </li>
+                <li>
+                    <ul id="admin-mensaje" class="collapse">
+                        <li>
+                            <a href="~/Mensaje/Create">Crear Mensaje</a>
+                        </li>
+                        <li>
+                            <a href="~/Mensaje/Index">Buscar Mensaje</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="reporte">
+                    <a href="~/ReporteCI/Index"><strong>Reportes</strong></a>
+                </li>
+                <li>
+                    <strong>@Html.ActionLink("Desconectar", "LogOut", "Home")</strong>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+@if (tipo == 2)
+{ 
+    <div class="wrap-menu">
+        <nav class="navbar-collapse bs-navbar-collapse collapse in" role="navigation" style="height: auto;">
+            <ul class="menu-left nav nav-sidebar">
+                <li class="empleado">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#jefe-empleado"><strong>Empleados</strong></a>
+                </li>
+                <li>
+                    <ul id="jefe-empleado" class="collapse">
+                        <li>
+                            <a href="~/Empleado/Index">Buscar Empleado</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="permiso">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#jefe-permiso"><strong>Permisos</strong></a>
+                </li>
+                <li>
+                    <ul id="jefe-permiso" class="collapse">
+                        <li>
+                            <a href="~/Permiso/Create">Crear Permiso</a>
+                        </li>
+                        <li>
+                            <a href="~/Permiso/Index">Buscar Permiso</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mensaje">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#jefe-mensaje"><strong>Mensajes</strong></a>
+                </li>
+                <li>
+                    <ul id="jefe-mensaje" class="collapse">
+                        <li>
+                            <a href="~/Mensaje/Create">Crear Mensaje</a>
+                        </li>
+                        <li>
+                            <a href="~/Mensaje/Index">Buscar Mensaje</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="reporte">
+                    <a href="~/ReporteCI/Index"><strong>Reportes</strong></a>
+                </li>
+                <li>
+                    <strong>@Html.ActionLink("Desconectar", "LogOut", "Home")</strong>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+@if (tipo == 3)
+{ 
+    <div class="wrap-menu">
+        <nav class="navbar-collapse bs-navbar-collapse collapse in" role="navigation" style="height: auto;">
+            <ul class="menu-left nav nav-sidebar">
+                <li class="empleado">
+                    <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#comun-empleado"><strong>Empleados</strong></a>
+                </li>
+                <li>
+                    <ul id="comun-empleado" class="collapse">
+                        <li>
+                            <a href="~/Empleado/EditSolo">Cambiar Datos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="reporte">
+                    <a href="~/ReporteCI/Index"><strong>Reportes</strong></a>
+                </li>
+                <li>
+                    <strong>@Html.ActionLink("Desconectar", "LogOut", "Home")</strong>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
+

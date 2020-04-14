@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnTime", "OnTime\OnTime.csproj", "{996A65D0-E7F6-4105-ACE8-92FBA5CF4F2F}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://edwardfc.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = OnTime\\OnTime.csproj
+		SccProjectName1 = OnTime
+		SccLocalPath1 = OnTime
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{996A65D0-E7F6-4105-ACE8-92FBA5CF4F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996A65D0-E7F6-4105-ACE8-92FBA5CF4F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996A65D0-E7F6-4105-ACE8-92FBA5CF4F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996A65D0-E7F6-4105-ACE8-92FBA5CF4F2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
